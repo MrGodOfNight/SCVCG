@@ -4,11 +4,11 @@ set(PROJECT_NAME SCVCG)
 project(${PROJECT_NAME})
 
 set(PUBLIC_INCLUDES
-	includes/main.hpp
+	include/SCVCG.h
 )
 
 set(PRIVATE_SOURCES
-	src/main.cpp
+	src/SCVCG.c
 )
 
 set(ALL_SOURCES
@@ -35,4 +35,3 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
