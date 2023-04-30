@@ -28,8 +28,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 # собираю все файлы для IDE
 # I collect all the files for the IDE
 
-set(OPENAL_INCLUDE_DIR "C:/Program Files (x86)/OpenAL 1.1 SDK/include")
-set(OPENAL_LIBRARY "C:/Program Files (x86)/OpenAL 1.1 SDK/libs/Win64/OpenAL32.lib")
+set(OPENAL_INCLUDE_DIR "OpenAL 1.1 SDK/include")
+set(OPENAL_LIBRARY "OpenAL 1.1 SDK/libs/Win64/OpenAL32.lib")
 # устанавливаю путь к файлам openAL
 # set path to openAL files
 
