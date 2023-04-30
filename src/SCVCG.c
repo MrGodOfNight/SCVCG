@@ -16,18 +16,62 @@
 
 
 
-
-#include "../include/SCVCG.h"
 /*
-* подключаю хедеры самой библиотеки
-* I include headers of the library itself
+* including headers of the library itself
 */
+#include "../include/SCVCG.h"
+#include "headers/record.h"
 
+/*
+* connecting various headers and libs
+*/
 #include <portaudio.h>
 #include <al.h>
-/*
-* подключаю различные хедеры и либы
-* I connect various headers and libs
-*/
+#include <alc.h>
 
 
+
+void SCVCG_init()
+{
+  PaError err = Pa_Initialize();
+  if (err != paNoError) 
+  {
+    printf("An error occured while initializing portaudio");
+    printf("Error message: %s", Pa_GetErrorText(err));
+    return 1;
+  }
+
+  Pa_Terminate();
+  printf("portaudio initialized successfully");
+
+  ALCdevice *device = alcOpenDevice(NULL);
+  if (device == NULL) 
+  {
+    return -1;
+  }
+
+  ALCcontext *context = alcCreateContext(device, NULL);
+  if (context == NULL) 
+  {
+    return -1;
+  }
+
+  alcMakeContextCurrent(context);
+
+  ALCcontext *context = alcGetCurrentContext();
+  ALCdevice *device = alcGetContextsDevice(context);
+  alcMakeContextCurrent(NULL);
+  alcDestroyContext(context);
+  alcCloseDevice(device);
+}
+
+void SCVCG_cleanup()
+{
+  Pa_Terminate();
+
+  ALCcontext *context = alcGetCurrentContext();
+  ALCdevice *device = alcGetContextsDevice(context);
+  alcMakeContextCurrent(NULL);
+  alcDestroyContext(context);
+  alcCloseDevice(device);
+}

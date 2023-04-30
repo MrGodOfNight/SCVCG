@@ -6,36 +6,32 @@ project(${PROJECT_NAME})
 set(PUBLIC_INCLUDES
 	include/SCVCG.h
 )
-# внешний файл для подключения к либе
 # external file to connect to lib
 
 set(PRIVATE_SOURCES
 	src/SCVCG.c
+	src/record.c
+	src/headers/record.h
 )
-# файлы для компиляции либы
 # files for compiling lib
 
 set(ALL_SOURCES
 	${PUBLIC_INCLUDES}
 	${PRIVATE_SOURCES}
 )
-# собираю все ресурсы в одну переменную
 # I collect all resources in one variable
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 	${ALL_SOURCES}
 )
-# собираю все файлы для IDE
 # I collect all the files for the IDE
 
-set(OPENAL_INCLUDE_DIR "OpenAL 1.1 SDK/include")
-set(OPENAL_LIBRARY "OpenAL 1.1 SDK/libs/Win64/OpenAL32.lib")
-# устанавливаю путь к файлам openAL
+set(OPENAL_INCLUDE_DIR "OpenAL SDK/include")
+set(OPENAL_LIBRARY "OpenAL SDK/libs/Win64/OpenAL32.lib")
 # set path to openAL files
 
 find_package(OpenAL REQUIRED)
 include_directories(${OPENAL_INCLUDE_DIR})
-# проверяю, установлен ли openAL
 # check if openAL is installed
 
 add_library(${PROJECT_NAME} STATIC
@@ -47,23 +43,19 @@ add_library(${PROJECT_NAME}_SHARED SHARED
 add_library(${PROJECT_NAME}_MODULE MODULE
 	${ALL_SOURCES}
 )
-# создаю библиотеку
 # create a library
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${OPENAL_LIBRARY})
 target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE ${OPENAL_LIBRARY})
 target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE ${OPENAL_LIBRARY})
-# подключаю openAL к либе
 # connect openAL to lib
 
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
-# устанавливаю пути к хедерам
 # set paths to headers
 
 add_subdirectory(external/PortAudio)
 target_link_libraries(${PROJECT_NAME} PRIVATE PortAudio)
 target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE PortAudio)
 target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE PortAudio)
-# подключаю PortAudio к либе
 # connect PortAudio to lib

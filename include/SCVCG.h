@@ -25,6 +25,60 @@ extern "C" {
 
 
 
+/**
+* player structure:
+* @param ip IP address of the sender in the form "xxx.xxx.xxx"
+* @param port sender port
+*/
+typedef struct Player
+{
+  char* ip;           
+  int port;           
+} Player;
+
+/*
+* library initialization
+*/
+void SCVCG_init();
+
+/*
+* launching a stream of receiving sound
+*/
+void SCVCG_start_rec();
+
+/*
+* stop a stream of receiving sound
+*/
+void SCVCG_stop_rec();
+
+/**
+* start sending sound to other users
+* @param sender sender (IP and port)
+* @param recipient recipient (IP and port)
+*/
+void SCVCG_2D_start_send(Player sender, Player recipient);
+
+/*
+* stopping the Audio Receive Stream
+*/
+void SCVCG_2D_stop_send();
+
+/**
+* starting an Audio Playback Stream
+* @param volume volume from 0 to 1.0
+*/
+void SCVCG_2D_start_receive(float volume);
+
+/*
+* stop audio playback stream
+*/
+void SCVCG_2D_stop_receive();
+
+/*
+* releasing resources occupied by the library
+*/
+void SCVCG_cleanup();
+
 
 
 #if defined(__cplusplus)
