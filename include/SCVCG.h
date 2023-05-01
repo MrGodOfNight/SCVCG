@@ -27,19 +27,19 @@ extern "C" {
 
 /**
 * player structure:
-* @param ip IP address of the sender in the form "xxx.xxx.xxx"
+* @param ip IP address of the server in the form "xxx.xxx.xxx"
 * @param port sender port
 */
-typedef struct Player
+typedef struct serverSettings
 {
   char* ip;           
   int port;           
-} Player;
+} serverSettings;
 
 /*
 * library initialization
 */
-void SCVCG_init();
+int SCVCG_init();
 
 /*
 * launching a stream of receiving sound
@@ -52,11 +52,11 @@ void SCVCG_start_rec();
 void SCVCG_stop_rec();
 
 /**
-* start sending sound to other users
-* @param sender sender (IP and port)
-* @param recipient recipient (IP and port)
+* start sending sound to other user
+* @param server server IP and port
+* @param recipient recipient
 */
-void SCVCG_2D_start_send(Player sender, Player recipient);
+void SCVCG_2D_start_send(serverSettings server, float recipient);
 
 /*
 * stopping the Audio Receive Stream

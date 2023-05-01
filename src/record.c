@@ -28,7 +28,7 @@ PaStreamCallbackFlags statusFlags, void *userData)
   float *wptr = &data[numSamples];
   int framesLeft = framesPerBuffer;
   (void) outputBuffer;  
-  /* Копируем данные из буфера ввода в буфер записи */
+  // copying data from the input buffer to the write buffer
   while (framesLeft > 0) 
   {
     int framesToProcess = (framesLeft < numSamples) ? framesLeft : numSamples;
@@ -38,21 +38,21 @@ PaStreamCallbackFlags statusFlags, void *userData)
     }
     framesLeft -= framesToProcess;
   }
-  numSamples += framesPerBuffer; // Обновляем количество записанных сэмплов
-  return paContinue; // Возвращает код статуса продолжения выполнения записи
+  numSamples += framesPerBuffer; // update the number of recorded samples
+  return paContinue; // returns the write continuation status code
 }
 
 void prepareData() 
 {
   int numBytes;
-  numSamples = NUM_SECONDS * SAMPLE_RATE; // Рассчитываем общее количество сэмплов для записи
-  numBytes = numSamples * sizeof(float); // Рассчитываем размер буфера памяти в байтах
-  data = (float*)malloc(numBytes); // Выделяем память под буфер данных
+  numSamples = NUM_SECONDS * SAMPLE_RATE; // calculate the total number of samples to record
+  numBytes = numSamples * sizeof(float); // calculate the size of the memory buffer in bytes
+  data = (float*)malloc(numBytes); // allocate memory for the data buffer
 }
 
 void SCVCG_start_rec() 
 {
-  /* Инициализация системы PortAudio */
+  // initializing the PortAudio System
   PaError err = Pa_Initialize();
   if (err != paNoError) 
   {
@@ -60,7 +60,7 @@ void SCVCG_start_rec()
     return;
   }
 
-  /* Открываем поток для записи */
+  // opening a stream for writing
   err = Pa_OpenDefaultStream(&stream, NUM_CHANNELS, 0, paFloat32, SAMPLE_RATE, FRAMES_PER_BUFFER, paCallback, NULL);
   if (err != paNoError) 
   {
@@ -68,20 +68,18 @@ void SCVCG_start_rec()
     return;
   }
 
-  /* Запускаем поток для записи */
+  // starting a stream for writing
   err = Pa_StartStream(stream);
   if (err != paNoError) 
   {
     printf("Error starting stream: %s", Pa_GetErrorText(err));
     return;
   }
-
-  return 0;
 }
 
 void SCVCG_stop_rec()
 {
-  /* Останавливаем поток для записи */
+  // stop stream for writing
   PaError err = Pa_StopStream(stream);
   if (err != paNoError) 
   {
@@ -89,7 +87,7 @@ void SCVCG_stop_rec()
     return;
   }
 
-  /* Закрываем поток для записи */
+  // close the stream for writing
   err = Pa_CloseStream(stream);
   if (err != paNoError) 
   {

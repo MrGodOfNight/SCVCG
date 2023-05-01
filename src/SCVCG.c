@@ -21,6 +21,7 @@
 */
 #include "../include/SCVCG.h"
 #include "headers/record.h"
+#include "headers/webWork.h"
 
 /*
 * connecting various headers and libs
@@ -31,7 +32,7 @@
 
 
 
-void SCVCG_init()
+int SCVCG_init()
 {
   PaError err = Pa_Initialize();
   if (err != paNoError) 
@@ -58,11 +59,13 @@ void SCVCG_init()
 
   alcMakeContextCurrent(context);
 
-  ALCcontext *context = alcGetCurrentContext();
-  ALCdevice *device = alcGetContextsDevice(context);
+  ALCcontext *contex = alcGetCurrentContext();
+  ALCdevice *devic = alcGetContextsDevice(contex);
   alcMakeContextCurrent(NULL);
-  alcDestroyContext(context);
-  alcCloseDevice(device);
+  alcDestroyContext(contex);
+  alcCloseDevice(devic);
+
+  return 0;
 }
 
 void SCVCG_cleanup()
