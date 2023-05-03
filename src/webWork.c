@@ -17,3 +17,29 @@
 
 
 #include "headers/webWork.h"
+
+
+
+TCPsocket SCVCG_connect(char* ip, int port)
+{
+  IPaddress address; // defining an address object of type IPaddress
+  TCPsocket socket; // defining a socket object of type TCPsocket
+  
+  if (SDLNet_ResolveHost(&address, ip, port) == -1) // trying to resolve hostname to ip address
+  { 
+    printf("SDLNet_ResolveHost: %s", SDLNet_GetError()); // display an error message if the hostname resolution fails
+    return NULL; // return NULL on error
+  }
+
+  socket = SDLNet_TCP_Open(&address); // opening a TCP connection to the server at the specified address and storing the results in a socket object
+  
+  if (!socket) // checking for errors when opening a TCP connection
+  { 
+    printf("SDLNet_TCP_Open: %s", SDLNet_GetError()); // displaying an error message in case of unsuccessful opening of a TCP connection
+    return NULL; // return NULL on error
+  }
+  
+  printf("Server connection established"); // displaying a message about successful connection to the server
+  
+  return socket; // return socket object on success
+}

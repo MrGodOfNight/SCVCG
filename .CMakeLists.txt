@@ -28,8 +28,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
 )
 # I collect all the files for the IDE
 
-set(OPENAL_INCLUDE_DIR "OpenAL SDK/include")
-set(OPENAL_LIBRARY "OpenAL SDK/libs/Win64/OpenAL32.lib")
+set(OPENAL_INCLUDE_DIR "path/include")
+set(OPENAL_LIBRARY "path/OpenAL32.lib")
 # set path to openAL files
 
 find_package(OpenAL REQUIRED)
@@ -52,12 +52,36 @@ target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE ${OPENAL_LIBRARY})
 target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE ${OPENAL_LIBRARY})
 # connect openAL to lib
 
+set(SDL2_INCLUDE_DIR "path/include/SDL2")
+set(SDL2_LIBRARY "path/SDL2.lib")
+set(SDL2_DIR "path/share/sdl2")
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE ${SDL2_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE ${SDL2_LIBRARY})
+# include SDL2
+
+set(SDL2_mixer_INCLUDE_DIR "path/include/SDL2")
+set(SDL2_mixer_LIBRARY "path/SDL2_mixer.lib")
+set(SDL2_mixer_DIR "path/share/SDL2_mixer")
+find_package(SDL2_mixer REQUIRED)
+include_directories(${SDL2_mixer_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_mixer_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE ${SDL2_mixer_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE ${SDL2_mixer_LIBRARY})
+# include SDL2_mixer
+
+set(SDL2_net_INCLUDE_DIR "path/include/SDL2")
+set(SDL2_net_LIBRARY "path/SDL2_net.lib")
+set(SDL2_net_DIR "path/share/SDL2_net")
+find_package(SDL2_net REQUIRED)
+include_directories(${SDL2_net_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_net_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE ${SDL2_net_LIBRARY})
+target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE ${SDL2_net_LIBRARY})
+# include SDL2_net
+
 target_include_directories(${PROJECT_NAME} PUBLIC includes)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 # set paths to headers
-
-add_subdirectory(external/PortAudio)
-target_link_libraries(${PROJECT_NAME} PRIVATE PortAudio)
-target_link_libraries(${PROJECT_NAME}_SHARED PRIVATE PortAudio)
-target_link_libraries(${PROJECT_NAME}_MODULE PRIVATE PortAudio)
-# connect PortAudio to lib

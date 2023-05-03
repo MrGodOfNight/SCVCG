@@ -26,25 +26,38 @@
 /*
 * connecting various headers and libs
 */
-#include <portaudio.h>
 #include <al.h>
 #include <alc.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+#include <SDL_net.h>
 
 
 
 int SCVCG_init()
 {
-  PaError err = Pa_Initialize();
-  if (err != paNoError) 
+  //initialize the library SDL
+  if(SDL_Init(SDL_INIT_EVERYTHING) != 0) 
   {
-    printf("An error occured while initializing portaudio");
-    printf("Error message: %s", Pa_GetErrorText(err));
+    printf("SDL_Init Error: %s", SDL_GetError());
     return 1;
   }
 
-  Pa_Terminate();
-  printf("portaudio initialized successfully");
+  //initialize the library SDL_mixer
+  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) 
+  {
+    printf("Mix_OpenAudio Error: %s", Mix_GetError());
+    return 1;
+  }
 
+  //initialize the library SDL_net
+  if(SDLNet_Init() != 0) 
+  {
+    printf("SDLNet_Init Error: %s", SDLNet_GetError());
+    return 1;
+  }
+  
+  //initialize the library OpenAL
   ALCdevice *device = alcOpenDevice(NULL);
   if (device == NULL) 
   {
@@ -59,19 +72,14 @@ int SCVCG_init()
 
   alcMakeContextCurrent(context);
 
-  ALCcontext *contex = alcGetCurrentContext();
-  ALCdevice *devic = alcGetContextsDevice(contex);
-  alcMakeContextCurrent(NULL);
-  alcDestroyContext(contex);
-  alcCloseDevice(devic);
-
   return 0;
 }
 
 void SCVCG_cleanup()
 {
-  Pa_Terminate();
-
+  Mix_CloseAudio();
+  SDLNet_Quit();
+  SDL_Quit();
   ALCcontext *context = alcGetCurrentContext();
   ALCdevice *device = alcGetContextsDevice(context);
   alcMakeContextCurrent(NULL);

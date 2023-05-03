@@ -17,3 +17,9 @@
 
 
 #include "../include/SCVCG.h"
+#include <SDL_net.h> // подключение библиотеки SDL_net
+#include <stdio.h> // подключение стандартной библиотеки ввода-вывода
+
+
+
+TCPsocket SCVCG_connect(char* ip, int port);

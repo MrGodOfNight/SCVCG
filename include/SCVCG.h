@@ -25,38 +25,26 @@ extern "C" {
 
 
 
-/**
-* player structure:
-* @param ip IP address of the server in the form "xxx.xxx.xxx"
-* @param port sender port
-*/
-typedef struct serverSettings
-{
-  char* ip;           
-  int port;           
-} serverSettings;
+typedef struct _TCPsocket *TCPsocket;
 
 /*
 * library initialization
 */
 int SCVCG_init();
 
-/*
-* launching a stream of receiving sound
+/**
+* client-server connection function. Function that takes the string ip and the number port as arguments, and returns an object of type TCPsocket
+* @param ip Server IP
+* @param port Server Port
 */
-void SCVCG_start_rec();
-
-/*
-* stop a stream of receiving sound
-*/
-void SCVCG_stop_rec();
+TCPsocket SCVCG_connect(char* ip, int port);
 
 /**
 * start sending sound to other user
-* @param server server IP and port
-* @param recipient recipient
+* @param sender sender socket
+* @param recipient recipient socket
 */
-void SCVCG_2D_start_send(serverSettings server, float recipient);
+void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient);
 
 /*
 * stopping the Audio Receive Stream

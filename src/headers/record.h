@@ -26,41 +26,7 @@ extern "C" {
 
 
 #include "../include/SCVCG.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <portaudio.h>
 
-
-
-/**
-* constant values: 
-* @param SAMPLE_RATE sampling rate of the audio stream (in Hertz) 
-* @param FRAMES_PER_BUFFER buffer size (in frames) 
-* @param NUM_SECONDS recording duration (in seconds)
-* @param NUM_CHANNELS number of channels (1 for mono and 2 for stereo recording)
-*/
-#define SAMPLE_RATE  (44100)
-#define FRAMES_PER_BUFFER (64)
-#define NUM_SECONDS     (2)
-#define NUM_CHANNELS    (2)
-
-// initialization of global variables
-PaStream *stream;
-float *data;
-int numSamples;
-
-// infinite loop function for transmitting audio stream
-static int paCallback(const void *inputBuffer, void *outputBuffer, 
-unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, 
-PaStreamCallbackFlags statusFlags, void *userData);
-
-// function to receive data, memory, etc.
-void prepareData();
-
-void SCVCG_2D_start_rec();
-
-void SCVCG_2D_stop_rec();
 
 
 
