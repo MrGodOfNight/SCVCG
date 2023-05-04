@@ -25,8 +25,13 @@ extern "C" {
 
 
 
-#include "../include/SCVCG.h"
+#include "../../include/SCVCG.h"
+#include "webWork.h"
 
+
+
+void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient);
+void SCVCG_2D_stop_send(TCPsocket sender);
 
 
 

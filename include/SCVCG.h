@@ -46,16 +46,19 @@ TCPsocket SCVCG_connect(char* ip, int port);
 */
 void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient);
 
-/*
+/**
 * stopping the Audio Receive Stream
+* @param sender sender socket
 */
-void SCVCG_2D_stop_send();
+void SCVCG_2D_stop_send(TCPsocket sender);
 
 /**
 * starting an Audio Playback Stream
+* @param sender sender socket
+* @param recipient recipient socket
 * @param volume volume from 0 to 1.0
 */
-void SCVCG_2D_start_receive(float volume);
+void SCVCG_2D_start_receive(TCPsocket sender, TCPsocket recipient, float volume);
 
 /*
 * stop audio playback stream

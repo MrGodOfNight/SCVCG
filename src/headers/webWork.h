@@ -15,11 +15,30 @@
 */
 
 
+#ifndef webWork_H
+#define webWork_H
 
-#include "../include/SCVCG.h"
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+
+
+#include "../../include/SCVCG.h"
+#include "record.h"
 #include <SDL_net.h> // подключение библиотеки SDL_net
 #include <stdio.h> // подключение стандартной библиотеки ввода-вывода
 
 
 
 TCPsocket SCVCG_connect(char* ip, int port);
+void send(TCPsocket sender, TCPsocket recipient);
+void stop_send(TCPsocket sender);
+
+
+
+#if defined(__cplusplus)
+}  /* extern "C" */
+#endif
+
+#endif // webWork_H

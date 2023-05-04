@@ -20,6 +20,10 @@
 
 
 
+#define MAX_PACKET_SIZE 1024 // Максимальный размер пакета
+
+
+
 TCPsocket SCVCG_connect(char* ip, int port)
 {
   IPaddress address; // defining an address object of type IPaddress
@@ -42,4 +46,24 @@ TCPsocket SCVCG_connect(char* ip, int port)
   printf("Server connection established"); // displaying a message about successful connection to the server
   
   return socket; // return socket object on success
+}
+
+void send(TCPsocket sender, TCPsocket recipient) 
+{
+  char buffer[MAX_PACKET_SIZE];
+  int received = SDLNet_TCP_Recv(sender, buffer, MAX_PACKET_SIZE);   // Получаем данные от sender
+  if (received <= 0) 
+  {
+    return;
+  }
+  if (SDLNet_TCP_Send(recipient, buffer, received) < received) 
+  {     // Отправляем данные в recipient
+    printf("Ошибка при отправке данных: %s", SDLNet_GetError());
+  }
+  SDL_Delay(10);
+}
+
+void stop_send(TCPsocket sender)
+{
+  SDLNet_TCP_Close(sender);
 }
