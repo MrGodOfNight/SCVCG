@@ -16,10 +16,22 @@
 
 
 
+/*
+* including headers of the library itself
+*/
+#include "../include/SCVCG.h"
 #include "headers/record.h"
+#include "headers/webWork.h"
+#include "headers/reproduction.h"
+
+/*
+* connecting various headers and libs
+*/
+#include <al.h>
+#include <alc.h>
 #include <SDL.h>
-#include <SDL_net.h>
 #include <SDL_mixer.h>
+#include <SDL_net.h>
 
 
 
@@ -37,7 +49,6 @@ typedef struct {
 
 void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient) 
 {
-  Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 1024); // start recording audio
   Mix_AllocateChannels(1);
   int stream_channel = Mix_PlayChannel(-1, NULL, 0);
   // we write audio to the buffer and immediately send it to the recipient

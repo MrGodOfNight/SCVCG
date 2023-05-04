@@ -25,8 +25,21 @@ extern "C" {
 
 
 
+/*
+* including headers of the library itself
+*/
 #include "../../include/SCVCG.h"
 #include "webWork.h"
+#include "reproduction.h"
+
+/*
+* connecting various headers and libs
+*/
+#include <al.h>
+#include <alc.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+#include <SDL_net.h>
 
 
 

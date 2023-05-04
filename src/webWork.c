@@ -16,7 +16,22 @@
 
 
 
+/*
+* including headers of the library itself
+*/
+#include "../include/SCVCG.h"
+#include "headers/record.h"
 #include "headers/webWork.h"
+#include "headers/reproduction.h"
+
+/*
+* connecting various headers and libs
+*/
+#include <al.h>
+#include <alc.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+#include <SDL_net.h>
 
 
 

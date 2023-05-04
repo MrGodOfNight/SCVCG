@@ -22,6 +22,7 @@
 #include "../include/SCVCG.h"
 #include "headers/record.h"
 #include "headers/webWork.h"
+#include "headers/reproduction.h"
 
 /*
 * connecting various headers and libs
@@ -44,7 +45,7 @@ int SCVCG_init()
   }
 
   //initialize the library SDL_mixer
-  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0) 
+  if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 1024) != 0) 
   {
     printf("Mix_OpenAudio Error: %s", Mix_GetError());
     return 1;
@@ -77,7 +78,6 @@ int SCVCG_init()
 
 void SCVCG_cleanup()
 {
-  Mix_CloseAudio();
   SDLNet_Quit();
   SDL_Quit();
   ALCcontext *context = alcGetCurrentContext();

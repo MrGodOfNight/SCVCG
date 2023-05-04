@@ -12,6 +12,8 @@ set(PRIVATE_SOURCES
 	src/SCVCG.c
 	src/record.c
 	src/webWork.c
+	src/reproduction.c
+	src/headers/reproduction.h
 	src/headers/webWork.h
 	src/headers/record.h
 )
