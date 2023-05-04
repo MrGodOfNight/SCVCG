@@ -43,7 +43,7 @@ int SCVCG_init()
     printf("SDL_Init Error: %s", SDL_GetError());
     return 1;
   }
-
+  
   //initialize the library SDL_mixer
   if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 1024) != 0) 
   {
@@ -78,6 +78,7 @@ int SCVCG_init()
 
 void SCVCG_cleanup()
 {
+  Mix_Quit();
   SDLNet_Quit();
   SDL_Quit();
   ALCcontext *context = alcGetCurrentContext();

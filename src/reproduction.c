@@ -37,37 +37,37 @@
 
 void SCVCG_2D_start_receive(TCPsocket sender, TCPsocket recipient, int volume)
 {
-  // Создание переменной, которая будет хранить принятые данные
+  // creating a variable that will store the received data
   char buffer[1024];
 
-  // Бесконечный цикл для чтения данных из сокета
+  // infinite loop to read data from socket
   while (1) 
   {
-    // Чтение данных из сокета sender и сохранение в буфере
+    // read data from sender socket and store in buffer
     int received_bytes = SDLNet_TCP_Recv(sender, buffer, sizeof(buffer));
 
-    // Если нет полученных данных, то выходим из цикла
+    // if there is no data received, then exit the loop
     if (received_bytes <= 0) 
     {
       break;
     }
 
-    // Создание потока для декодирования и воспроизведения аудио
+    // creating a stream for decoding and playing audio
     SDL_RWops* rw = SDL_RWFromMem(buffer, received_bytes);
     SDL_AudioSpec spec;
     Uint32 length;
     Uint8* buffer_decode;
     Mix_Chunk* chunk;
 
-    // Декодирование аудио и его сохранение в переменных
+    // decoding audio and storing it in variables
     SDL_LoadWAV_RW(rw, 1, &spec, &buffer_decode, &length);
     chunk = Mix_QuickLoad_WAV(buffer_decode);
     SDL_FreeWAV(buffer_decode);
 
-    // Установка громкости воспроизведения, в зависимости от значения аргумента volume
+    // set playback volume, depending on the value of the volume argument
     Mix_VolumeChunk(chunk, volume);
 
-    // Воспроизведение аудио
+    // audio playback
     Mix_PlayChannel(-1, chunk, 0);
   }
 }
