@@ -26,8 +26,8 @@ extern "C" {
 
 #include "../../include/SCVCG.h"
 #include "record.h"
-#include <SDL_net.h> // подключение библиотеки SDL_net
-#include <stdio.h> // подключение стандартной библиотеки ввода-вывода
+#include <SDL_net.h>
+#include <stdio.h>
 
 
 

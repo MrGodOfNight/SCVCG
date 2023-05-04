@@ -23,33 +23,36 @@
 
 
 
-// Определяем структуру для чтения аудиопакетов
+/**
+* defining a Structure for Reading Audio Packets
+* @param data audio packet data
+* @param length packet length
+* @param position position of the current chunk
+*/
 typedef struct {
-  Uint8 *data;            // Данные аудиопакета
-  Uint32 length;          // Длина пакета
-  Uint32 position;        // Позиция текущего чанка
+  Uint8 *data;
+  Uint32 length;
+  Uint32 position;
 } audio_packet;
 
-// Функция, инициализирующая SDL, SDL_mixer и SDL_net для записи и передачи потокового аудио
 void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient) 
 {
-  // Запускаем запись аудио
-  Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 1024);
+  Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S16SYS, 2, 1024); // start recording audio
   Mix_AllocateChannels(1);
   int stream_channel = Mix_PlayChannel(-1, NULL, 0);
-  // Записываем аудио в буфер и сразу отправляем его на получателя
+  // we write audio to the buffer and immediately send it to the recipient
   audio_packet packet;
   while (1) 
-  {//как преобразовать uint32 к int в с?
+  {
     Mix_Chunk *audioChunk;
     audioChunk = Mix_GetChunk(stream_channel);
-    // Получаем текущий чанк аудио
+    // get current audio chunk
     packet.position = 0;
     packet.length = audioChunk->alen;
     packet.data = audioChunk->abuf;
     if (SDLNet_TCP_Send(sender, packet.data, packet.length) < (int)packet.length) 
     {
-      printf("Ошибка при отправке данных: %s", SDLNet_GetError());
+      printf("Error sending data: %s", SDLNet_GetError());
     }
     send(sender, recipient);
   }

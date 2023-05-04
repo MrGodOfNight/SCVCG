@@ -51,14 +51,14 @@ TCPsocket SCVCG_connect(char* ip, int port)
 void send(TCPsocket sender, TCPsocket recipient) 
 {
   char buffer[MAX_PACKET_SIZE];
-  int received = SDLNet_TCP_Recv(sender, buffer, MAX_PACKET_SIZE);   // Получаем данные от sender
+  int received = SDLNet_TCP_Recv(sender, buffer, MAX_PACKET_SIZE);   // getting data from sender
   if (received <= 0) 
   {
     return;
   }
-  if (SDLNet_TCP_Send(recipient, buffer, received) < received) 
-  {     // Отправляем данные в recipient
-    printf("Ошибка при отправке данных: %s", SDLNet_GetError());
+  if (SDLNet_TCP_Send(recipient, buffer, received) < received) // send data to recipient
+  {     
+    printf("Error sending data: %s", SDLNet_GetError());
   }
   SDL_Delay(10);
 }
