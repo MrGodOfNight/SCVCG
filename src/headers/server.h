@@ -15,8 +15,8 @@
 */
 
 
-#ifndef webWork_H
-#define webWork_H
+#ifndef server_H
+#define server_H
 
 #if defined(__cplusplus)
 extern "C" {
@@ -30,6 +30,7 @@ extern "C" {
 #include "../../include/SCVCG.h"
 #include "record.h"
 #include "reproduction.h"
+#include "client.h"
 
 /*
 * connecting various headers and libs
@@ -42,9 +43,7 @@ extern "C" {
 
 
 
-TCPsocket SCVCG_connect(char* ip, int port);
-void send(TCPsocket sender, TCPsocket recipient);
-void stop_send(TCPsocket sender);
+void SCVCG_2D_server_send(TCPsocket sender, TCPsocket recipient);
 
 
 
@@ -52,4 +51,4 @@ void stop_send(TCPsocket sender);
 }  /* extern "C" */
 #endif
 
-#endif // webWork_H
+#endif // server_H

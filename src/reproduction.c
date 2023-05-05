@@ -20,9 +20,10 @@
 * including headers of the library itself
 */
 #include "../include/SCVCG.h"
+#include "headers/server.h"
 #include "headers/record.h"
-#include "headers/webWork.h"
 #include "headers/reproduction.h"
+#include "headers/client.h"
 
 /*
 * connecting various headers and libs
@@ -35,7 +36,7 @@
 
 
 
-void SCVCG_2D_start_receive(TCPsocket sender, TCPsocket recipient, int volume)
+void SCVCG_2D_start_receive(TCPsocket recipient, int volume)
 {
   // creating a variable that will store the received data
   char buffer[1024];
@@ -44,7 +45,7 @@ void SCVCG_2D_start_receive(TCPsocket sender, TCPsocket recipient, int volume)
   while (1) 
   {
     // read data from sender socket and store in buffer
-    int received_bytes = SDLNet_TCP_Recv(sender, buffer, sizeof(buffer));
+    int received_bytes = SDLNet_TCP_Recv(recipient, buffer, sizeof(buffer));
 
     // if there is no data received, then exit the loop
     if (received_bytes <= 0) 

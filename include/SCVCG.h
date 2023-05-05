@@ -32,6 +32,21 @@ typedef struct _TCPsocket *TCPsocket;
 */
 int SCVCG_init();
 
+
+
+// all server functions:
+
+/**
+* server function to send sound from one user to another
+* @param sender sender socket
+* @param recipient recipient socket
+*/
+void SCVCG_2D_server_send(TCPsocket sender, TCPsocket recipient);
+
+
+
+//all client functions:
+
 /**
 * client-server connection function. Function that takes the string ip and the number port as arguments, and returns an object of type TCPsocket
 * @param ip Server IP
@@ -40,11 +55,10 @@ int SCVCG_init();
 TCPsocket SCVCG_connect(char* ip, int port);
 
 /**
-* start sending sound to other user
+* start sending sound to server
 * @param sender sender socket
-* @param recipient recipient socket
 */
-void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient);
+void SCVCG_2D_start_send(TCPsocket sender);
 
 /**
 * stopping the Audio Receive Stream
@@ -54,11 +68,10 @@ void SCVCG_2D_stop_send(TCPsocket sender);
 
 /**
 * starting an Audio Playback Stream
-* @param sender sender socket
 * @param recipient recipient socket
 * @param volume volume from 0 to 128
 */
-void SCVCG_2D_start_receive(TCPsocket sender, TCPsocket recipient, int volume);
+void SCVCG_2D_start_receive(TCPsocket recipient, int volume);
 
 /**
 * stop audio playback stream

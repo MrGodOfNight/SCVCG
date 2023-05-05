@@ -36,41 +36,19 @@
 
 
 
-/**
-* defining a Structure for Reading Audio Packets
-* @param data audio packet data
-* @param length packet length
-* @param position position of the current chunk
-*/
-typedef struct {
-  Uint8 *data;
-  Uint32 length;
-  Uint32 position;
-} audio_packet;
+#define MAX_PACKET_SIZE 1024 // maximum packet size
 
-void SCVCG_2D_start_send(TCPsocket sender) 
+void SCVCG_2D_server_send(TCPsocket sender, TCPsocket recipient) 
 {
-  Mix_AllocateChannels(1);
-  int stream_channel = Mix_PlayChannel(-1, NULL, 0);
-  // we write audio to the buffer and immediately send it to the recipient
-  audio_packet packet;
-  while (1) 
+  char buffer[MAX_PACKET_SIZE];
+  int received = SDLNet_TCP_Recv(sender, buffer, MAX_PACKET_SIZE);   // getting data from sender
+  if (received <= 0) 
   {
-    Mix_Chunk *audioChunk;
-    audioChunk = Mix_GetChunk(stream_channel);
-    // get current audio chunk
-    packet.position = 0;
-    packet.length = audioChunk->alen;
-    packet.data = audioChunk->abuf;
-    if (SDLNet_TCP_Send(sender, packet.data, packet.length) < (int)packet.length) 
-    {
-      printf("Error sending data: %s", SDLNet_GetError());
-    }
+    return;
   }
-}
-
-void SCVCG_2D_stop_send(TCPsocket sender)
-{
-  Mix_CloseAudio();
-  SDLNet_TCP_Close(sender);
+  if (SDLNet_TCP_Send(recipient, buffer, received) < received) // send data to recipient
+  {     
+    printf("Error sending data: %s", SDLNet_GetError());
+  }
+  SDL_Delay(10);
 }

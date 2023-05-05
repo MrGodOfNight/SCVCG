@@ -29,8 +29,9 @@ extern "C" {
 * including headers of the library itself
 */
 #include "../../include/SCVCG.h"
-#include "webWork.h"
 #include "reproduction.h"
+#include "server.h"
+#include "client.h"
 
 /*
 * connecting various headers and libs
@@ -43,7 +44,7 @@ extern "C" {
 
 
 
-void SCVCG_2D_start_send(TCPsocket sender, TCPsocket recipient);
+void SCVCG_2D_start_send(TCPsocket sender);
 void SCVCG_2D_stop_send(TCPsocket sender);
 
 

@@ -20,9 +20,10 @@
 * including headers of the library itself
 */
 #include "../include/SCVCG.h"
+#include "headers/server.h"
 #include "headers/record.h"
-#include "headers/webWork.h"
 #include "headers/reproduction.h"
+#include "headers/client.h"
 
 /*
 * connecting various headers and libs
@@ -35,10 +36,6 @@
 
 
 
-#define MAX_PACKET_SIZE 1024 // Максимальный размер пакета
-
-
-
 TCPsocket SCVCG_connect(char* ip, int port)
 {
   IPaddress address; // defining an address object of type IPaddress
@@ -46,7 +43,7 @@ TCPsocket SCVCG_connect(char* ip, int port)
   
   if (SDLNet_ResolveHost(&address, ip, port) == -1) // trying to resolve hostname to ip address
   { 
-    printf("SDLNet_ResolveHost: %s", SDLNet_GetError()); // display an error message if the hostname resolution fails
+    printf("Error: %s", SDLNet_GetError()); // display an error message if the hostname resolution fails
     return NULL; // return NULL on error
   }
 
@@ -54,31 +51,11 @@ TCPsocket SCVCG_connect(char* ip, int port)
   
   if (!socket) // checking for errors when opening a TCP connection
   { 
-    printf("SDLNet_TCP_Open: %s", SDLNet_GetError()); // displaying an error message in case of unsuccessful opening of a TCP connection
+    printf("Error: %s", SDLNet_GetError()); // displaying an error message in case of unsuccessful opening of a TCP connection
     return NULL; // return NULL on error
   }
   
   printf("Server connection established"); // displaying a message about successful connection to the server
   
   return socket; // return socket object on success
-}
-
-void send(TCPsocket sender, TCPsocket recipient) 
-{
-  char buffer[MAX_PACKET_SIZE];
-  int received = SDLNet_TCP_Recv(sender, buffer, MAX_PACKET_SIZE);   // getting data from sender
-  if (received <= 0) 
-  {
-    return;
-  }
-  if (SDLNet_TCP_Send(recipient, buffer, received) < received) // send data to recipient
-  {     
-    printf("Error sending data: %s", SDLNet_GetError());
-  }
-  SDL_Delay(10);
-}
-
-void stop_send(TCPsocket sender)
-{
-  SDLNet_TCP_Close(sender);
 }

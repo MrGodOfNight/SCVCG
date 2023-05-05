@@ -15,9 +15,8 @@
 */
 
 
-
-#ifndef reproduction_H
-#define reproduction_H
+#ifndef client_H
+#define client_H
 
 #if defined(__cplusplus)
 extern "C" {
@@ -28,10 +27,10 @@ extern "C" {
 /*
 * including headers of the library itself
 */
-#include "../../include/SCVCG.h"
+#include "../include/SCVCG.h"
 #include "server.h"
-#include "client.h"
 #include "record.h"
+#include "reproduction.h"
 
 /*
 * connecting various headers and libs
@@ -44,8 +43,7 @@ extern "C" {
 
 
 
-void SCVCG_2D_start_receive(TCPsocket recipient, int volume);
-void SCVCG_2D_stop_receive(TCPsocket recipient);
+TCPsocket SCVCG_connect(char* ip, int port);
 
 
 
@@ -53,4 +51,4 @@ void SCVCG_2D_stop_receive(TCPsocket recipient);
 }  /* extern "C" */
 #endif
 
-#endif // reproduction_H
+#endif // client_H

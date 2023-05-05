@@ -20,9 +20,10 @@
 * including headers of the library itself
 */
 #include "../include/SCVCG.h"
+#include "headers/server.h"
 #include "headers/record.h"
-#include "headers/webWork.h"
 #include "headers/reproduction.h"
+#include "headers/client.h"
 
 /*
 * connecting various headers and libs

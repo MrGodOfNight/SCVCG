@@ -16,41 +16,30 @@
 
 
 
-#ifndef reproduction_H
-#define reproduction_H
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
+// include the SCVCG library
+#include "../include/SCVCG.h"
 
 
 
-/*
-* including headers of the library itself
-*/
-#include "../../include/SCVCG.h"
-#include "server.h"
-#include "client.h"
-#include "record.h"
+int main()
+{
+  SCVCG_init();
+  /*
+  * you should have a loop to listen for incoming actions from clients
+  * send client sockets for voice chat and use them
+  */
 
-/*
-* connecting various headers and libs
-*/
-#include <al.h>
-#include <alc.h>
-#include <SDL.h>
-#include <SDL_mixer.h>
-#include <SDL_net.h>
+  TCPsocket clientSock1;
 
+  /*
+  * here you have to select the person to whom you want to send the sound buffer
+  */
 
+  TCPsocket clientSock2;
+  SCVCG_2D_server_send(clientSock1, clientSock2);
 
-void SCVCG_2D_start_receive(TCPsocket recipient, int volume);
-void SCVCG_2D_stop_receive(TCPsocket recipient);
-
-
-
-#if defined(__cplusplus)
-}  /* extern "C" */
-#endif
-
-#endif // reproduction_H
+  //releasing resources occupied by the library
+  SCVCG_cleanup();
+  
+  return 1;
+}
