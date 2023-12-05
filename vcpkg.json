@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "scvcg",
+  "description": "Library written in C that you can add to your game (or just an application)",
+  "dependencies": [
+    "opus",
+    "libsrtp",
+    "portaudio"
+  ]
+}
